@@ -7,11 +7,36 @@
  * Computes the sum of three bits.
  */
 
+/*
+
+From the Karnaugh map:
+    sum = ab'c' + a'bc' + a'b'c + abc = c'(a'b + ab') + c(ab + a'b')
+However:
+    a xor b = a'b + ab'
+    (a xor b)' = (a+b')(a'+b) = aa' + ab + b'a' + b'b = ab + a'b'
+Therefore:
+    c'(a'b + ab') + c(ab + a'b') = c'(a xor b) + c(a xor b)' = (a xor b) xor c
+        = a xor b xor c
+
+Also,
+    carry = ab + bc + ca
+*/
+
 CHIP FullAdder {
     IN a, b, c;  // 1-bit inputs
     OUT sum,     // Right bit of a + b + c
         carry;   // Left bit of a + b + c
 
     PARTS:
-    // Put you code here:
+    /* sum */
+    Xor(a=a, b=b, out=AXorB);
+    Xor(a=AXorB, b=c, out=sum);
+    
+    /* carry */
+    And(a=a, b=b, out=AAndB);
+    And(a=b, b=c, out=BAndC);
+    And(a=c, b=a, out=CAndA);
+    
+    Or(a=AAndB, b=BAndC, out=w);
+    Or(a=w, b=CAndA, out=carry);
 }
