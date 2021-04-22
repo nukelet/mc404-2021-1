@@ -12,3 +12,49 @@
 // the screen should remain fully clear as long as no key is pressed.
 
 // Put your code here.
+
+@SCREEN
+D=A
+@POS
+M=D
+
+(LOOP)
+    @KBD
+    D=M
+    @FILL
+    D;JGT
+
+    @POS
+    A=M
+    M=0
+    @INC_POS
+    0;JMP
+
+    (FILL)
+        @POS
+        A=M
+        M=-1
+
+    (INC_POS)
+        @POS
+        M=M+1
+
+    // check if POS is at the end of
+    // the screen
+    @SCREEN
+    D=A
+    @POS
+    D=M-D
+    @8192
+    D=A-D
+
+    @LOOP
+    D;JGT
+
+    // reset POS to the first pixel
+    @SCREEN
+    D=A
+    @POS
+    M=D
+    @LOOP
+    0;JMP
