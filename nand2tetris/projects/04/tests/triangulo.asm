@@ -1,18 +1,20 @@
-@6
-D=A
-@R0
-M=D
+// carrega valores de teste
+// @6
+// D=A
+// @R0
+// M=D
+// 
+// @4
+// D=A
+// @R1
+// M=D
+// 
+// @3
+// D=A
+// @R2
+// M=D
 
-@4
-D=A
-@R1
-M=D
-
-@3
-D=A
-@R2
-M=D
-
+// programa em si
 @R0
 D=M
 @R1
